@@ -1,25 +1,31 @@
 package pl.matelkom;
 
-import org.springframework.stereotype.Service;
-
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 import java.io.IOException;
 
-@Service
+@Profile("desktop")
+@Component
 public class ExcelReaderService {
 
-    private Process ExcelReaderProcess;
+    Process ExcelReader = null;
 
     public void startExcelReader() throws IOException {
-        ProcessBuilder processBuilder = new ProcessBuilder("python", "path/to/your/python/script.py");
-        ExcelReaderProcess = processBuilder.start();
+
+        ProcessBuilder processBuilder = new ProcessBuilder(
+                "python",
+                "D:\\SOFT\\JAVA\\PartsCodesCombinatorGenerator\\src\\resources\\PythonScripts\\excelReaderService\\excel_reader.py"
+        );
+        Process ExcelProcess = processBuilder.start();
+        this.ExcelReader = ExcelProcess; // Przypisanie procesu do zmiennej dla ExcelReaderService instancji
         System.out.println("Python script started.");
     }
 
-    public void stopExcelReader() {
-        if (ExcelReaderProcess != null) {
-            ExcelReaderProcess.destroy();
-            System.out.println("Python script stopped.");
-        }
+    public void killExcelReader() {
+
+        if (ExcelReader != null) {
+            ExcelReader.destroy();
+        System.out.println("ExcelReader has been closed!"); }
     }
 }
 

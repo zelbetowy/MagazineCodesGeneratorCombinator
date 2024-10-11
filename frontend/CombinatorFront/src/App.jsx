@@ -1,35 +1,44 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import './App.css'
+
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+    return (
+        <Router>
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+            <div>
+                <h1>Parts numbers Generator-Combinator Application</h1>
+
+                <Routes>
+                    <Route path="/" element={
+                        <div>
+                            <p>App helps to create a structure for warehouse and accounting codes, mainly for fasteners - screws, nuts,
+                                washers for the accounting program for a manufacturing company - to initially insert them into the accounting
+                                program database. This ensures consistent naming as the database evolves and different names are used across a wide
+                                range of products.</p>
+                            {/* U¿ywamy Link zamiast button */}
+                            <Link to="/main">
+                                <button>Get Started!</button>
+                            </Link>
+                        </div>
+                    } />
+                    <Route path="/main" element={
+                        <div>
+                            <h1>Main Page</h1>
+                            <p>This is another page</p>
+                            {/* U¿ywamy Link zamiast button */}
+                            <Link to="/">
+                                <button>Back to Home</button>
+                            </Link>
+                        </div>
+                    } />
+                </Routes>
+            </div>
+        </Router>
+    );
 }
 
-export default App
+export default App;
