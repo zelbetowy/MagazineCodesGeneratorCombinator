@@ -38,7 +38,6 @@ public class ElementsGeneratorTest {
 
 
 
-
     @Test
     public void testBolts() {
         // symulowana odpowiedz z Mockito

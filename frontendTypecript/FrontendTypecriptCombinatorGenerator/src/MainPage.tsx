@@ -1,27 +1,36 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { HotTable } from '@handsontable/react';
-import 'handsontable/dist/handsontable.full.css';
+import DataGrid from 'react-data-grid';
 import './styles/main-page.css';
 import axios from 'axios';
 
 const MainPage: React.FC = () => {
-    const [numberOfTables, setNumberOfTables] = useState<number>(3); // Domyúlnie 3 tabele
-    const [tableData, setTableData] = useState<string[][][]>(
-        Array(3).fill([['', '', ''], ['', '', ''], ['', '', '']])
-    ); // Domyúlnie 3 puste tabele
+    const [numberOfTables, setNumberOfTables] = useState<number>(3); // Domy≈õlnie 3 tabele
+    const [tableData, setTableData] = useState(
+        Array.from({ length: 3 }, () => [
+            { id: 0, A: '', B: '', C: '' },
+            { id: 1, A: '', B: '', C: '' },
+            { id: 2, A: '', B: '', C: '' }
+        ])
+    );
 
-    // Funkcja do wys≥ania danych tabel w formacie JSON
+    const columns = [
+        { key: 'A', name: 'A' },
+        { key: 'B', name: 'B' },
+        { key: 'C', name: 'C' }
+    ];
+
+    // Funkcja do wys≈Çania danych tabel w formacie JSON
     const sendTableData = () => {
-        // Sprawdzamy, czy w tabelach sπ dane (czy sπ puste)
-        const isDataPresent = tableData.some(table => table.flat().some(cell => cell !== ''));
+        const isDataPresent = tableData.some((table: any) =>
+            table.some((row: any) => row.A !== '' || row.B !== '' || row.C !== '')
+        );
 
         if (!isDataPresent) {
-            alert('W tabelach nie ma danych do wys≥ania!');
+            alert('W tabelach nie ma danych do wys≈Çania!');
             return;
         }
 
-        // Tworzenie dynamicznego JSON-a
         const columnRanges = tableData.reduce((acc, table, index) => {
             acc[`range${index + 1}`] = table;
             return acc;
@@ -29,24 +38,34 @@ const MainPage: React.FC = () => {
 
         axios.post('http://localhost:7070/send_data', columnRanges)
             .then(response => {
-                console.log('Dane zosta≥y pomyúlnie wys≥ane:', response.data);
+                console.log('Dane zosta≈Çy pomy≈õlnie wys≈Çane:', response.data);
             })
             .catch(error => {
-                console.error('B≥πd przy wysy≥aniu danych:', error);
+                console.error('B≈ÇƒÖd przy wysy≈Çaniu danych:', error);
             });
+    };
+
+    const onRowsChange = (rows: any, index: number) => {
+        const newData = [...tableData];
+        newData[index] = rows;
+        setTableData(newData);
     };
 
     return (
         <div className="main-page">
             <h1>Panel do wklejania danych</h1>
-            <label htmlFor="numberOfTables">Wybierz liczbÍ cz≥onÛw:</label>
+            <label htmlFor="numberOfTables">Wybierz liczbƒô cz≈Çon√≥w:</label>
             <select
                 id="numberOfTables"
                 value={numberOfTables}
                 onChange={(e) => {
                     const newTableCount = Number(e.target.value);
                     setNumberOfTables(newTableCount);
-                    setTableData(Array(newTableCount).fill([['', '', ''], ['', '', ''], ['', '', '']]));
+                    setTableData(Array.from({ length: newTableCount }, () => [
+                        { id: 0, A: '', B: '', C: '' },
+                        { id: 1, A: '', B: '', C: '' },
+                        { id: 2, A: '', B: '', C: '' }
+                    ]));
                 }}
             >
                 <option value={2}>2</option>
@@ -56,29 +75,23 @@ const MainPage: React.FC = () => {
                 <option value={6}>6</option>
             </select>
 
+            {/* Generowanie tabel */}
             {[...Array(numberOfTables)].map((_, index) => (
                 <div key={index} className="data-table">
                     <h2>Table {index + 1}</h2>
-                    <HotTable
-                        data={tableData[index]}
-                        colHeaders={true}
-                        rowHeaders={true}
-                        licenseKey="non-commercial-and-evaluation"
-                        afterChange={(changes) => {
-                            if (changes) {
-                                const newData = [...tableData];
-                                newData[index] = changes.map(change => change[3]); // Aktualizacja danych
-                                setTableData(newData);
-                            }
-                        }}
+                    <DataGrid
+                        columns={columns}
+                        rows={tableData[index]}
+                        onRowsChange={(rows) => onRowsChange(rows, index)}
+                        enableCellCopyPaste={true} // Obs≈Çuga kopiowania/wklejania wielu kom√≥rek
                     />
                 </div>
             ))}
 
             <div className="Button2">
-                <button onClick={sendTableData}>Wyúlij dane</button>
+                <button onClick={sendTableData}>Wy≈õlij dane</button>
                 <Link to="/">
-                    <button>PowrÛt do strony g≥Ûwnej</button>
+                    <button>Powr√≥t do strony g≈Ç√≥wnej</button>
                 </Link>
             </div>
         </div>

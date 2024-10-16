@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.Scanner;
 
-
 @Profile("desktop")
 @Service
 public class DesktopRunner implements ProfileRunner{
@@ -42,26 +41,26 @@ public class DesktopRunner implements ProfileRunner{
 
         while (running) {
             System.out.println("Choose option:");
-            System.out.println(" 1 - Generate bolts");
-            System.out.println(" 2 - Generate nuts");
-            System.out.println(" 3 - Generate washers");
-            System.out.println(" 4 - Close programs");
+            System.out.println(" 4 - Generate bolts");
+            System.out.println(" 5 - Generate nuts");
+            System.out.println(" 6 - Generate washers");
+            System.out.println(" 7 - Close programs");
             int choice = scanner.nextInt();
 
             switch (choice) {
-                case 1:
+                case 4:
                     System.out.println("Generating combinations for bolts");
                     generator.bolts();
                     break;
-                case 2:
+                case 5:
                     System.out.println("Generating combinations for nuts");
                     generator.nuts();
                     break;
-                case 3:
+                case 6:
                     System.out.println("Generating combinations for washers");
                     generator.washers();
                     break;
-                case 4:
+                case 7:
                     System.out.println("Closing program");
                     running = false;
                     exit();
@@ -73,18 +72,16 @@ public class DesktopRunner implements ProfileRunner{
         }
     }
 
-public void startServices() {
-    try {
-        excelReaderService.startExcelReader();
-    } catch (IOException e) {
-        System.out.println(" Problem with " + excelReaderService.toString());
-        throw new RuntimeException(e);
+    public void startServices() {
+        try {
+            excelReaderService.startExcelReader();
+        } catch (IOException e) {
+            System.out.println(" Problem with " + excelReaderService.toString());
+            throw new RuntimeException(e);
+        }
     }
-}
 
     public void stopServices() {
         excelReaderService.killExcelReader();
     }
 }
-
-

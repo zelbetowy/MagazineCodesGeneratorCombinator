@@ -11,8 +11,6 @@ public class AppStarter {
 
 
 
-
-
     //Constructor is needed to inject proper version of runner - Desktop or Profile.
     public AppStarter(ProfileRunner profileRunner) {
         this.profileRunner = profileRunner;

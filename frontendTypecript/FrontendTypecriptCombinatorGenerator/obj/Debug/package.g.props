@@ -16,8 +16,10 @@
     <PackageJsonDependenciesExpress Condition="$(PackageJsonDependenciesExpress) == ''">^4.21.1</PackageJsonDependenciesExpress>
     <PackageJsonDependenciesHandsontable Condition="$(PackageJsonDependenciesHandsontable) == ''">^14.6.0</PackageJsonDependenciesHandsontable>
     <PackageJsonDependenciesReact Condition="$(PackageJsonDependenciesReact) == ''">^18.3.1</PackageJsonDependenciesReact>
+    <PackageJsonDependenciesReactDataGrid Condition="$(PackageJsonDependenciesReactDataGrid) == ''">^7.0.0-beta.47</PackageJsonDependenciesReactDataGrid>
     <PackageJsonDependenciesReactDom Condition="$(PackageJsonDependenciesReactDom) == ''">^18.3.1</PackageJsonDependenciesReactDom>
     <PackageJsonDependenciesReactRouterDom Condition="$(PackageJsonDependenciesReactRouterDom) == ''">^6.26.2</PackageJsonDependenciesReactRouterDom>
+    <PackageJsonDependenciesXlsx Condition="$(PackageJsonDependenciesXlsx) == ''">^0.18.5</PackageJsonDependenciesXlsx>
     <PackageJsonDevdependenciesEslintJs Condition="$(PackageJsonDevdependenciesEslintJs) == ''">^9.11.1</PackageJsonDevdependenciesEslintJs>
     <PackageJsonDevdependenciesTypesExpress Condition="$(PackageJsonDevdependenciesTypesExpress) == ''">^5.0.0</PackageJsonDevdependenciesTypesExpress>
     <PackageJsonDevdependenciesTypesNode Condition="$(PackageJsonDevdependenciesTypesNode) == ''">^22.7.5</PackageJsonDevdependenciesTypesNode>
