@@ -1,0 +1,62 @@
+# docker compose build --progress=plain #sprawdzenie ladowania compose przed bulidem
+# docker compose up --build #Ladowanie pliksu
+
+
+services:
+
+  postgres:
+    container_name: my_postgres_db
+    image: postgres:alpine    
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./combinatorbase:/var/lib/postgresql/data
+      - ${DATABASE_LOG_PATH}:/var/log/postgresql
+    networks:
+      - combinator-network
+
+  backend:
+    build: 
+      context: ./CodesCombinator_Backend
+      dockerfile: Dockerfile
+    container_name: CodesCombinator-springboot-backend-container
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/${POSTGRES_DB}
+      - SPRING_DATASOURCE_USERNAME=${POSTGRES_USER}
+      - SPRING_DATASOURCE_PASSWORD=${POSTGRES_PASSWORD}
+      - SPRING_PROFILES_ACTIVE=web-dev  # Ustawienie profilu
+    volumes:
+      - ./CodesCombinator_Backend:/app  # Mapowanie kodu źródłowego backendu
+      - ${BACKEND_LOG_PATH}:/var/log/backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    restart: on-failure
+    networks:
+      - combinator-network
+
+  frontend:
+    build:
+      context: ./CodesCombinator_Frontend
+      dockerfile: Dockerfile
+    container_name: CodesCombinator-react-frontend-container
+    environment:
+      - VITE_PORT=7070
+      - REACT_APP_API_URL=http://backend:8080  # Wewnętrzny adres backendu
+    volumes:
+      - ./CodesCombinator_Frontend:/frontend  # Mapowanie kodu źródłowego frontendu
+    depends_on:
+      - backend
+    ports:
+      - "7070:7070"
+    networks:
+      - combinator-network
+
+networks:
+  combinator-network:
+    driver: bridge
