@@ -1,5 +1,5 @@
 package pl.matelkom.Runners;
 
 public interface ProfileRunner {
-    void start();
+    void start() throws InterruptedException;
 }

@@ -6,7 +6,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 
-@Profile({"web-dev", "web-prod"})
+@Profile({"webdev", "webprod"})
 @Service
 public class WebRunner implements ProfileRunner {
 
@@ -28,16 +28,4 @@ public class WebRunner implements ProfileRunner {
             System.out.println("No active profile detected.");
         }
     }
-
-
-//    public void startServicesForDev() {
-//        try {
-//            String[] commands = {"npm", "run", "dev"};
-//            startProcess(commands, "./frontendTypeScript");
-//        } catch (IOException e) {
-//            System.out.println("Problem starting frontend dev: " + e.getMessage());
-//        }
-//    }
-
-
 }

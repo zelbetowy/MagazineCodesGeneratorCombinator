@@ -8,32 +8,31 @@ import org.springframework.stereotype.Service;
 import pl.matelkom.desktop.ConsoleDesktopService;
 import pl.matelkom.desktop.ExcelReaderRunner;
 
-import java.io.IOException;
 import java.util.Scanner;
 
-@Profile("ConsoleDesktop")
+@Profile("desktop")
 @Service
 public class ConsoleDesktopRunner implements ProfileRunner{
 
     @Autowired
-    ExcelReaderRunner excelReaderService;
+    private ExcelReaderRunner excelReaderRunner;
     @Autowired
-    ConsoleDesktopService consoleDesktopService;
+    private ConsoleDesktopService consoleDesktopService;
 
     @Autowired
     private ApplicationContext applicationContext;
 
     @Override
-    public void start() {
+    public void start() throws InterruptedException {
         startServices();
+        Thread.sleep(200);
         mainLoop();
     }
 
-    public void exit () {
+    public void exit() {
         stopServices();
         SpringApplication.exit(applicationContext, () -> 0);
         System.exit(0);
-
     }
 
     public void mainLoop() {
@@ -95,15 +94,10 @@ public class ConsoleDesktopRunner implements ProfileRunner{
     }
 
     public void startServices() {
-        try {
-            excelReaderService.startExcelReader();
-        } catch (IOException e) {
-            System.out.println(" Problem with " + excelReaderService.toString());
-            throw new RuntimeException(e);
-        }
+        excelReaderRunner.startExcelReader();
     }
 
     public void stopServices() {
-        excelReaderService.killExcelReader();
+        excelReaderRunner.killExcelReader();
     }
 }

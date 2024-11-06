@@ -1,0 +1,4 @@
+column_letters_for_numbers=B,D,F,H,J
+column_letters_for_names=C,E,G,I,K
+COLUMN_START=70
+COLUMN_END=101

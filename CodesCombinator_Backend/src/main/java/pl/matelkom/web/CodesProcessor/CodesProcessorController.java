@@ -1,6 +1,7 @@
 package pl.matelkom.web.CodesProcessor;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.ByteArrayInputStream;
 import java.util.Map;
 
+@Profile({"webdev", "webprod"})
 @RestController
 @RequestMapping("/api/codes")
 public class CodesProcessorController {

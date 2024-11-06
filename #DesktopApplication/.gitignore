@@ -1,0 +1,6 @@
+# Ignorowanie wypakowanych - Ignorowanie JRE (Zulu)
+# Ignorowanie wypakowanych - Pythona Portable
+# Ignorowanie plików generowanych i tymczasowych
+Portable Python*/
+Zulu*/
+*.log

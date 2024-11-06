@@ -5,20 +5,28 @@ import jakarta.persistence.Id;
 import lombok.Generated;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.context.annotation.Profile;
 
 import java.time.LocalDateTime;
 
-
+@Profile({"webdev", "webprod"})
 @Entity
-@Getter
-@Setter
 public class GeneratedCSVFile {
 
     @Id
     @Generated
     private long ID;
+
+    @Getter
+    @Setter
     private String fileName;
+
+    @Getter
+    @Setter
     private LocalDateTime createdAt;
+
+    @Getter
+    @Setter
     private byte[] csvData;
 
     // Konstruktor bezargumentowy

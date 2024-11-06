@@ -1,6 +1,7 @@
 package pl.matelkom.web.CodesProcessor;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import pl.matelkom.common.ElementsCombinator;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.UUID;
 
+@Profile({"webdev", "webprod"})
 @Service
 public class CodesProcessorService {
 

@@ -19,12 +19,61 @@ public class ConsoleDesktopService {
     private final FileHandlerUtility fileSaverUtility;
 
     // Separatory, które można ustawiać z poziomu MainLoop
-    @Setter
-    @Getter
+
+    public ElementsCombinator getElementsCombinator() {
+        return elementsCombinator;
+    }
+
+    public String getFilePathBolts() {
+        return filePathBolts;
+    }
+
+    public void setFilePathBolts(String filePathBolts) {
+        this.filePathBolts = filePathBolts;
+    }
+
+    public String getFilePathNuts() {
+        return filePathNuts;
+    }
+
+    public void setFilePathNuts(String filePathNuts) {
+        this.filePathNuts = filePathNuts;
+    }
+
+    public String getFilePathWashers() {
+        return filePathWashers;
+    }
+
+    public void setFilePathWashers(String filePathWashers) {
+        this.filePathWashers = filePathWashers;
+    }
+
+    public FileHandlerUtility getFileSaverUtility() {
+        return fileSaverUtility;
+    }
+
+    public String getNamesSeparator() {
+        return NamesSeparator;
+    }
+
+    public void setNamesSeparator(String namesSeparator) {
+        NamesSeparator = namesSeparator;
+    }
+
+    public String getNumbersSeparator() {
+        return NumbersSeparator;
+    }
+
+    public void setNumbersSeparator(String numbersSeparator) {
+        NumbersSeparator = numbersSeparator;
+    }
+
+    public RestTemplate getRestTemplate() {
+        return restTemplate;
+    }
+
     private String NumbersSeparator = "-";
 
-    @Setter
-    @Getter
     private String NamesSeparator = " ";
 
     String filePathBolts = "DesktopGeneratedFiles/bolts_combinations.csv";

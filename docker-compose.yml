@@ -57,6 +57,19 @@ services:
     networks:
       - combinator-network
 
+  excelreader-service:
+    build:
+      context: ./CodesCombinator_Microservices/ExcelReaderService
+      dockerfile: Dockerfile
+    container_name: excel_reader_service
+    environment:
+      - FLASK_ENV=development
+    ports:
+      - "5000:5000"
+    networks:
+      - combinator-network
+
+
 networks:
   combinator-network:
     driver: bridge

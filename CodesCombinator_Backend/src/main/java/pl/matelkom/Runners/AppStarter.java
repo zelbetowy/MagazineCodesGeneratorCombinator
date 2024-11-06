@@ -14,7 +14,7 @@ public class AppStarter {
         this.profileRunner = profileRunner;
     }
 
-    public void start() {
+    public void start() throws InterruptedException {
         profileRunner.start();
     }
 }
